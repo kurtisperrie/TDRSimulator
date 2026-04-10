@@ -10,15 +10,14 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --red:   #c0392b;
-  --black: #1a1a1a;
-  --gray:  #6b6b6b;
-  --light: #e8e8e8;
-  --bg:    #f7f6f4;
-  --white: #ffffff;
-  --mono:  'JetBrains Mono', monospace;
-  --serif: 'Playfair Display', serif;
-  --sans:  'Lato', sans-serif;
+  --red:    #c0392b;
+  --black:  #1a1a1a;
+  --gray:   #6b6b6b;
+  --light:  #e8e8e8;
+  --lighter:#f3f3f3;
+  --bg:     #f7f6f4;
+  --white:  #ffffff;
+  --blue:   #2471a3;
 }
 
 html, body { height: 100%; overflow: hidden; }
@@ -26,7 +25,7 @@ html, body { height: 100%; overflow: hidden; }
 body {
   background: var(--bg);
   color: var(--black);
-  font-family: var(--sans);
+  font-family: 'Lato', sans-serif;
   font-weight: 300;
   display: flex;
   flex-direction: column;
@@ -37,450 +36,304 @@ body {
 .header {
   background: var(--white);
   border-bottom: 2px solid var(--black);
-  padding: 13px 32px;
+  padding: 11px 28px;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   flex-shrink: 0;
 }
-.header-title {
-  font-family: var(--serif);
-  font-size: 19px;
-  font-weight: 600;
-  color: var(--black);
-  letter-spacing: 0.3px;
-}
+.header-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; }
 .header-title span { color: var(--red); }
-.header-meta {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--gray);
-  letter-spacing: 1.5px;
-}
+.header-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 1.5px; }
 
 /* ── BODY ── */
 .body { display: flex; flex: 1; overflow: hidden; min-height: 0; }
 
 /* ── LEFT PANEL ── */
 .left {
-  width: 270px;
+  width: 258px;
   flex-shrink: 0;
   background: var(--white);
   border-right: 1px solid var(--light);
-  padding: 18px 18px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  overflow: hidden;
+  gap: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+.left::-webkit-scrollbar { width: 3px; }
+.left::-webkit-scrollbar-thumb { background: var(--light); }
 
 .sec-title {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gray);
-  border-bottom: 1px solid var(--light);
-  padding-bottom: 7px;
-  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gray); border-bottom: 1px solid var(--light);
+  padding-bottom: 6px; margin-bottom: 8px;
 }
 
-.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
-.field:last-child { margin-bottom: 0; }
+/* Instructions in left panel */
+.instructions {
+  display: flex; flex-direction: column; gap: 5px;
+  background: var(--lighter); border: 1px solid var(--light);
+  border-radius: 2px; padding: 8px 10px;
+}
+.inst-row {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 10.5px; color: var(--gray); line-height: 1.35;
+}
+.inst-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500;
+  color: var(--white); background: var(--black);
+  width: 15px; height: 15px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
 
+.sep { width: 100%; height: 1px; background: var(--light); flex-shrink: 0; }
+
+.fields { display: flex; flex-direction: column; gap: 9px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
 .field-label { display: flex; justify-content: space-between; align-items: baseline; }
-.lbl { font-family: var(--sans); font-size: 12px; font-weight: 400; color: var(--black); }
-.lbl sub { font-size: 9px; }
-.val {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--red);
-  min-width: 60px;
-  text-align: right;
-}
+.lbl { font-family: 'Lato', sans-serif; font-size: 11.5px; font-weight: 400; color: var(--black); }
+.lbl sub { font-size: 8.5px; }
+.val { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 500; color: var(--red); min-width: 58px; text-align: right; }
+.field-hint { font-size: 9px; color: var(--gray); font-style: italic; line-height: 1.35; }
 
 input[type=range] {
-  -webkit-appearance: none;
-  width: 100%; height: 1px;
-  background: var(--light);
-  outline: none; cursor: pointer;
+  -webkit-appearance: none; width: 100%; height: 1px;
+  background: var(--light); outline: none; cursor: pointer;
 }
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 13px; height: 13px;
-  border-radius: 50%;
-  background: var(--black);
-  cursor: grab;
-  transition: background 0.15s, transform 0.1s;
+  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--black); cursor: grab; transition: background 0.15s, transform 0.1s;
 }
 input[type=range]::-webkit-slider-thumb:hover  { background: var(--red); }
 input[type=range]::-webkit-slider-thumb:active { transform: scale(1.3); cursor: grabbing; }
 
-.field-hint { font-size: 9.5px; color: var(--gray); font-style: italic; line-height: 1.4; }
-
-.preset-note {
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  color: var(--gray);
-  margin-bottom: 7px;
-  text-transform: uppercase;
-}
-.preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.preset-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
 .preset-btn {
-  padding: 6px 7px;
-  border: 1px solid var(--light);
-  background: transparent;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  color: var(--gray);
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: left;
-  border-radius: 2px;
-  line-height: 1.3;
+  padding: 6px 7px; border: 1px solid var(--light); background: transparent;
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gray);
+  cursor: pointer; transition: all 0.15s; text-align: left; border-radius: 2px; line-height: 1.3;
 }
 .preset-btn:hover { border-color: var(--black); color: var(--black); }
-.preset-btn.active {
-  border-color: var(--red);
-  color: var(--red);
-  background: rgba(192,57,43,0.04);
-}
-.preset-btn .pg {
-  display: block;
-  font-size: 8.5px;
-  color: var(--gray);
-  margin-top: 1px;
-}
-.preset-btn.active .pg { color: rgba(192,57,43,0.65); }
+.preset-btn.active { border-color: var(--red); color: var(--red); background: rgba(192,57,43,0.04); }
+.preset-btn .pg { display: block; font-size: 8px; color: var(--gray); margin-top: 1px; }
+.preset-btn.active .pg { color: rgba(192,57,43,0.6); }
 
 .anim-row { display: flex; gap: 5px; }
 .anim-btn {
-  flex: 1; padding: 7px;
-  border: 1px solid var(--light);
-  background: transparent;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--black);
-  cursor: pointer;
-  transition: all 0.15s;
-  border-radius: 2px;
+  flex: 1; padding: 6px; border: 1px solid var(--light); background: transparent;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--black);
+  cursor: pointer; transition: all 0.15s; border-radius: 2px;
 }
 .anim-btn:hover { border-color: var(--black); }
 .anim-btn.playing { background: var(--black); color: var(--white); border-color: var(--black); }
 
-.sep { width: 100%; height: 1px; background: var(--light); flex-shrink: 0; }
-
 /* ── RIGHT PANEL ── */
 .right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 20px 28px 16px;
-  gap: 14px;
-  min-height: 0;
+  flex: 1; display: flex; flex-direction: column;
+  overflow: hidden; padding: 14px 24px 12px; gap: 10px; min-height: 0;
 }
 
+/* Status bar */
 .status-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  min-height: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; gap: 10px;
 }
-.status-left { display: flex; align-items: center; gap: 10px; }
-.status-label {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 2px;
-  color: var(--gray);
-  text-transform: uppercase;
-}
+.status-left { display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0; overflow: hidden; }
+.status-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; white-space: nowrap; }
 .term-tag {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--red);
-  border: 1px solid var(--red);
-  background: rgba(192,57,43,0.04);
-  padding: 2px 8px;
-  border-radius: 2px;
-  transition: opacity 0.2s;
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500;
+  color: var(--red); border: 1px solid var(--red);
+  background: rgba(192,57,43,0.04); padding: 1px 7px; border-radius: 2px;
+  transition: opacity 0.2s; white-space: nowrap;
 }
 .term-tag.hidden { opacity: 0; pointer-events: none; }
-.term-desc {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--gray);
-  transition: opacity 0.2s;
-}
+.term-desc { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--gray); transition: opacity 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .term-desc.hidden { opacity: 0; }
-.scope-time {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--gray);
-}
 
-.scope-wrap { flex: 1; position: relative; min-height: 0; }
-.scope-label {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 1.5px;
-  color: var(--gray);
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: space-between;
+/* Axis toggles */
+.axis-toggles { display: flex; gap: 6px; flex-shrink: 0; }
+.axis-toggle { display: flex; border: 1px solid var(--light); border-radius: 2px; overflow: hidden; }
+.axis-toggle-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1px; color: var(--gray);
+  padding: 3px 6px; background: var(--lighter); border-right: 1px solid var(--light);
+  display: flex; align-items: center; white-space: nowrap;
 }
-.scope-box {
-  width: 100%;
-  height: calc(100% - 18px);
-  background: var(--white);
-  border: 1px solid var(--black);
+.axis-opt {
+  font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
+  padding: 3px 9px; background: transparent; border: none;
+  color: var(--gray); cursor: pointer; transition: all 0.15s; white-space: nowrap;
 }
-canvas#tdr { display: block; width: 100%; height: 100%; }
+.axis-opt:not(:last-child) { border-right: 1px solid var(--light); }
+.axis-opt.active { background: var(--black); color: var(--white); }
+.axis-opt:hover:not(.active) { background: var(--lighter); color: var(--black); }
 
-.calc-row {
+/* ── BLOCK DIAGRAM — centered above scope ── */
+.block-diagram-wrap {
   flex-shrink: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--light);
-  border: 1px solid var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 8px; /* space for probe label below */
 }
-.calc-cell {
+
+.block-diagram {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.bd-block {
+  border: 1.5px solid var(--black);
   background: var(--white);
-  padding: 10px 12px;
+  padding: 5px 14px;
+  text-align: center;
+  border-radius: 1px;
+  flex-shrink: 0;
+  position: relative;
+}
+.bd-block.load { border-color: var(--red); }
+
+.bd-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 7.5px;
+  letter-spacing: 1px; color: var(--gray); text-transform: uppercase; margin-bottom: 2px;
+}
+.bd-val {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  font-weight: 500; color: var(--black); line-height: 1.3;
+}
+.bd-val.red { color: var(--red); }
+
+/* Scope probe below source block */
+.bd-probe {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  gap: 0;
 }
-.calc-name {
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  color: var(--gray);
-  text-transform: uppercase;
+.bd-probe-line { width: 1px; height: 10px; background: var(--blue); }
+.bd-probe-label { font-family: 'JetBrains Mono', monospace; font-size: 7px; color: var(--blue); white-space: nowrap; }
+
+/* Line connector between blocks */
+.bd-connector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 110px;
+  flex-shrink: 0;
+  position: relative;
 }
+.bd-line-row {
+  display: flex; align-items: center; height: 20px; position: relative;
+}
+.bd-line-seg { flex: 1; height: 1.5px; background: var(--black); }
+.bd-arrowhead {
+  width: 0; height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--black);
+  flex-shrink: 0;
+}
+.bd-line-lbl {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 7px;
+  color: var(--gray); white-space: nowrap;
+  background: var(--white); padding: 0 3px;
+}
+.bd-refl-row {
+  display: flex; align-items: center; height: 14px; position: relative;
+}
+.bd-refl-seg { flex: 1; height: 1px; background: var(--light); }
+.bd-refl-arrowhead {
+  width: 0; height: 0;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-right: 5px solid var(--light);
+  flex-shrink: 0;
+}
+.bd-refl-lbl {
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 7px;
+  color: #ccc; white-space: nowrap;
+  background: var(--white); padding: 0 3px;
+}
+
+/* Scope */
+.scope-wrap { flex: 1; position: relative; min-height: 0; }
+.scope-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.scope-box { width: 100%; height: calc(100% - 16px); background: var(--white); border: 1px solid var(--black); }
+canvas#tdr { display: block; width: 100%; height: 100%; }
+
+/* Calc row */
+.calc-row {
+  flex-shrink: 0; display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--light); border: 1px solid var(--light);
+}
+.calc-cell { background: var(--white); padding: 9px 11px; display: flex; flex-direction: column; gap: 3px; }
+.calc-name { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 1.5px; color: var(--gray); text-transform: uppercase; }
 .calc-val {
-  font-family: var(--mono);
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--black);
-  letter-spacing: -0.5px;
-  transition: color 0.25s;
-  min-height: 24px;
+  font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500; color: var(--black);
+  letter-spacing: -0.5px; transition: color 0.25s; min-height: 22px;
 }
 .calc-val.flash { color: var(--red); }
-.calc-formula {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  color: var(--gray);
-  line-height: 1.4;
-}
-.calc-formula sub { font-size: 7px; }
+.calc-formula { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--gray); line-height: 1.4; }
+.calc-formula sub { font-size: 6.5px; }
 
-/* ── FOOTER ── */
+/* Footer */
 .footer {
-  flex-shrink: 0;
-  background: var(--white);
-  border-top: 1px solid var(--light);
-  padding: 9px 28px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
+  flex-shrink: 0; background: var(--white); border-top: 1px solid var(--light);
+  padding: 7px 24px; display: flex; align-items: center; justify-content: space-between;
 }
-.step { display: flex; align-items: center; gap: 7px; flex: 1; }
-.step-n {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--white);
-  background: var(--black);
-  width: 17px; height: 17px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.step-t { font-size: 10.5px; color: var(--gray); line-height: 1.3; }
-
-.footer-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-.credit {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: #aaa;
-  white-space: nowrap;
-}
+.footer-right { display: flex; align-items: center; gap: 14px; }
+.credit { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #aaa; white-space: nowrap; }
 .ref-btn {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: var(--gray);
-  background: transparent;
-  border: 1px solid var(--light);
-  padding: 4px 10px;
-  border-radius: 2px;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.15s;
-  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 1.5px; color: var(--gray);
+  background: transparent; border: 1px solid var(--light); padding: 4px 10px;
+  border-radius: 2px; cursor: pointer; text-transform: uppercase; transition: all 0.15s;
 }
 .ref-btn:hover { border-color: var(--black); color: var(--black); }
 
-/* ── REFERENCES MODAL ── */
+/* ── MODAL ── */
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(26, 26, 26, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
+  position: fixed; inset: 0; background: rgba(26,26,26,0.4);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
 }
-.modal-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-
+.modal-overlay.open { opacity: 1; pointer-events: all; }
 .modal {
-  background: var(--white);
-  border: 1px solid var(--black);
-  width: 560px;
-  max-width: 90vw;
-  padding: 0;
-  transform: translateY(10px);
-  transition: transform 0.2s ease;
+  background: var(--white); border: 1px solid var(--black);
+  width: 560px; max-width: 90vw;
+  transform: translateY(10px); transition: transform 0.2s;
 }
-.modal-overlay.open .modal {
-  transform: translateY(0);
-}
-
-.modal-header {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid var(--light);
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-.modal-title {
-  font-family: var(--serif);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--black);
-}
-.modal-subtitle {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--gray);
-  text-transform: uppercase;
-  margin-top: 3px;
-}
-.modal-close {
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: var(--gray);
-  cursor: pointer;
-  line-height: 1;
-  padding: 0 2px;
-  transition: color 0.15s;
-}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header { padding: 18px 22px 14px; border-bottom: 1px solid var(--light); display: flex; justify-content: space-between; align-items: baseline; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; }
+.modal-sub { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; margin-top: 3px; }
+.modal-close { background: transparent; border: none; font-size: 17px; color: var(--gray); cursor: pointer; transition: color 0.15s; }
 .modal-close:hover { color: var(--black); }
-
-.modal-body {
-  padding: 22px 24px 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.ref-section-title {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 3px;
-  color: var(--gray);
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--light);
-  padding-bottom: 7px;
-  margin-bottom: 12px;
-}
-
-.ref-entry {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
+.modal-body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 20px; }
+.ref-sec-title { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 3px; color: var(--gray); text-transform: uppercase; border-bottom: 1px solid var(--light); padding-bottom: 6px; margin-bottom: 11px; }
+.ref-entry { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 11px; }
 .ref-entry:last-child { margin-bottom: 0; }
-
-.ref-num {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--red);
-  min-width: 20px;
-  padding-top: 1px;
-  flex-shrink: 0;
-}
-
-.ref-content { flex: 1; }
-
-.ref-authors {
-  font-family: var(--sans);
-  font-size: 12.5px;
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.5;
-}
-.ref-title {
-  font-family: var(--sans);
-  font-size: 12.5px;
-  font-style: italic;
-  color: var(--black);
-  line-height: 1.5;
-}
-.ref-detail {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--gray);
-  line-height: 1.6;
-  margin-top: 2px;
-}
-
-.ref-tag {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 1px;
-  color: var(--gray);
-  border: 1px solid var(--light);
-  padding: 1px 6px;
-  border-radius: 2px;
-  margin-top: 4px;
-}
-
-.modal-note {
-  background: var(--bg);
-  border: 1px solid var(--light);
-  padding: 12px 14px;
-  font-size: 11px;
-  color: var(--gray);
-  line-height: 1.6;
-}
-.modal-note strong {
-  font-weight: 400;
-  color: var(--black);
-}
+.ref-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; color: var(--red); min-width: 18px; padding-top: 1px; flex-shrink: 0; }
+.ref-authors { font-family: 'Lato', sans-serif; font-size: 12px; color: var(--black); line-height: 1.5; }
+.ref-title { font-family: 'Lato', sans-serif; font-size: 12px; font-style: italic; color: var(--black); line-height: 1.5; }
+.ref-detail { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--gray); line-height: 1.6; margin-top: 2px; }
+.ref-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1px; color: var(--gray); border: 1px solid var(--light); padding: 1px 6px; border-radius: 2px; margin-top: 3px; }
+.modal-note { background: var(--bg); border: 1px solid var(--light); padding: 11px 13px; font-size: 11px; color: var(--gray); line-height: 1.6; }
+.modal-note strong { font-weight: 400; color: var(--black); }
 </style>
 </head>
 <body>
@@ -493,91 +346,81 @@ canvas#tdr { display: block; width: 100%; height: 100%; }
 
 <div class="body">
 
-<!-- LEFT CONTROLS -->
+<!-- ══ LEFT PANEL ══ -->
 <div class="left">
 
+  <!-- Instructions -->
+  <div>
+    <div class="sec-title">How to use</div>
+    <div class="instructions">
+      <div class="inst-row"><div class="inst-num">1</div><span>Set Z<sub>s</sub>, Z<sub>0</sub> and TD below</span></div>
+      <div class="inst-row"><div class="inst-num">2</div><span>Pick a load preset</span></div>
+      <div class="inst-row"><div class="inst-num">3</div><span>Orange marker = reflection at 2·TD</span></div>
+      <div class="inst-row"><div class="inst-num">4</div><span>Toggle Y / X axes above the scope</span></div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- Circuit Parameters -->
   <div>
     <div class="sec-title">Circuit Parameters</div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Source impedance Z<sub>s</sub></span>
-        <span class="val" id="v-zs">50 Ω</span>
+    <div class="fields">
+      <div class="field">
+        <div class="field-label"><span class="lbl">Source Z<sub>s</sub></span><span class="val" id="v-zs">50 Ω</span></div>
+        <input type="range" id="r-zs" min="1" max="500" value="50" step="1">
       </div>
-      <input type="range" id="r-zs" min="1" max="500" value="50" step="1">
-    </div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Line Z<sub>0</sub></span>
-        <span class="val" id="v-z0">50 Ω</span>
+      <div class="field">
+        <div class="field-label"><span class="lbl">Line Z<sub>0</sub></span><span class="val" id="v-z0">50 Ω</span></div>
+        <input type="range" id="r-z0" min="10" max="200" value="50" step="5">
+        <div class="field-hint">Char. impedance — seen only by waves</div>
       </div>
-      <input type="range" id="r-z0" min="10" max="200" value="50" step="5">
-      <div class="field-hint">Char. impedance — seen only by waves</div>
-    </div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Line delay TD</span>
-        <span class="val" id="v-td">1.0 ns</span>
+      <div class="field">
+        <div class="field-label"><span class="lbl">Line delay TD</span><span class="val" id="v-td">1.0 ns</span></div>
+        <input type="range" id="r-td" min="0.5" max="5" value="1" step="0.5">
+        <div class="field-hint">Reflection arrives at t = 2·TD</div>
       </div>
-      <input type="range" id="r-td" min="0.5" max="5" value="1" step="0.5">
-      <div class="field-hint">Reflection arrives at t = 2·TD</div>
-    </div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Source voltage E</span>
-        <span class="val" id="v-e">1.0 V</span>
+      <div class="field">
+        <div class="field-label"><span class="lbl">Velocity factor vf</span><span class="val" id="v-vf">0.66</span></div>
+        <input type="range" id="r-vf" min="0.3" max="1.0" value="0.66" step="0.01">
+        <div class="field-hint">vₚ = vf · c &nbsp;(for distance axis)</div>
       </div>
-      <input type="range" id="r-e" min="0.5" max="5" value="1" step="0.5">
-    </div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Rise time RT</span>
-        <span class="val" id="v-rt">0.15 ns</span>
+      <div class="field">
+        <div class="field-label"><span class="lbl">Source voltage E</span><span class="val" id="v-e">1.0 V</span></div>
+        <input type="range" id="r-e" min="0.5" max="5" value="1" step="0.5">
       </div>
-      <input type="range" id="r-rt" min="0.05" max="1" value="0.15" step="0.05">
-      <div class="field-hint">Resolution requires TD &gt; ½RT</div>
+      <div class="field">
+        <div class="field-label"><span class="lbl">Rise time RT</span><span class="val" id="v-rt">0.15 ns</span></div>
+        <input type="range" id="r-rt" min="0.05" max="1" value="0.15" step="0.05">
+        <div class="field-hint">Resolution: TD &gt; ½RT</div>
+      </div>
     </div>
   </div>
 
   <div class="sep"></div>
 
+  <!-- Load + Presets -->
   <div>
     <div class="sec-title">Load Impedance Z<sub>L</sub></div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Z<sub>L</sub></span>
-        <span class="val" id="v-zl">∞ Ω</span>
-      </div>
+    <div class="field" style="margin-bottom:10px;">
+      <div class="field-label"><span class="lbl">Z<sub>L</sub></span><span class="val" id="v-zl">∞ Ω</span></div>
       <input type="range" id="r-zl" min="0" max="500" value="500" step="5">
     </div>
-    <div class="preset-note">Presets from lecture slides</div>
+    <div class="sec-title" style="border:none;padding:0;margin-bottom:6px;">Presets</div>
     <div class="preset-grid">
-      <button class="preset-btn active" id="pre-open"    onclick="setPreset('open',this)">
-        Open circuit<span class="pg">Γ = +1</span>
-      </button>
-      <button class="preset-btn"        id="pre-short"   onclick="setPreset('short',this)">
-        Short circuit<span class="pg">Γ = −1</span>
-      </button>
-      <button class="preset-btn"        id="pre-matched" onclick="setPreset('matched',this)">
-        Matched load<span class="pg">Γ = 0</span>
-      </button>
-      <button class="preset-btn"        id="pre-high"    onclick="setPreset('high',this)">
-        Z<sub>L</sub> &gt; Z<sub>0</sub><span class="pg">0 &lt; Γ &lt; 1</span>
-      </button>
-      <button class="preset-btn"        id="pre-low"     onclick="setPreset('low',this)">
-        Z<sub>L</sub> &lt; Z<sub>0</sub><span class="pg">−1 &lt; Γ &lt; 0</span>
-      </button>
+      <button class="preset-btn active" id="pre-open"    onclick="setPreset('open',this)">Open<span class="pg">Γ = +1</span></button>
+      <button class="preset-btn"        id="pre-short"   onclick="setPreset('short',this)">Short<span class="pg">Γ = −1</span></button>
+      <button class="preset-btn"        id="pre-matched" onclick="setPreset('matched',this)">Matched<span class="pg">Γ = 0</span></button>
     </div>
   </div>
 
   <div class="sep"></div>
 
+  <!-- Playback -->
   <div>
     <div class="sec-title">Playback</div>
-    <div class="field">
-      <div class="field-label">
-        <span class="lbl">Animation speed</span>
-        <span class="val" id="v-spd">1.0×</span>
-      </div>
+    <div class="field" style="margin-bottom:8px;">
+      <div class="field-label"><span class="lbl">Speed</span><span class="val" id="v-spd">1.0×</span></div>
       <input type="range" id="r-spd" min="0.2" max="4" value="1" step="0.2">
     </div>
     <div class="anim-row">
@@ -588,28 +431,80 @@ canvas#tdr { display: block; width: 100%; height: 100%; }
 
 </div><!-- /left -->
 
-<!-- RIGHT -->
+<!-- ══ RIGHT PANEL ══ -->
 <div class="right">
 
+  <!-- Status bar + axis toggles -->
   <div class="status-bar">
     <div class="status-left">
       <span class="status-label">Termination</span>
       <span class="term-tag" id="term-tag">Open Circuit</span>
       <span class="term-desc" id="term-desc">Full reflection · in-phase · voltage doubles at load</span>
     </div>
-    <span class="scope-time" id="scope-time"></span>
+    <div class="axis-toggles">
+      <div class="axis-toggle">
+        <span class="axis-toggle-label">Y</span>
+        <button class="axis-opt active" id="y-volt" onclick="setYAxis('voltage',this)">Voltage</button>
+        <button class="axis-opt"        id="y-imp"  onclick="setYAxis('impedance',this)">Impedance</button>
+      </div>
+      <div class="axis-toggle">
+        <span class="axis-toggle-label">X</span>
+        <button class="axis-opt active" id="x-time" onclick="setXAxis('time',this)">Time</button>
+        <button class="axis-opt"        id="x-dist" onclick="setXAxis('distance',this)">Distance</button>
+      </div>
+    </div>
   </div>
 
+  <!-- ── BLOCK DIAGRAM centred above scope ── -->
+  <div class="block-diagram-wrap">
+    <div class="block-diagram">
+
+      <!-- Source block -->
+      <div class="bd-block" style="position:relative;">
+        <div class="bd-title">Source</div>
+        <div class="bd-val" id="bd-src">E=1.0V · Zs=50Ω</div>
+        <!-- Scope probe indicator below -->
+        <div class="bd-probe">
+          <div class="bd-probe-line"></div>
+          <div class="bd-probe-label">▲ scope</div>
+        </div>
+      </div>
+
+      <!-- Connector: forward + reflection arrows -->
+      <div class="bd-connector">
+        <div class="bd-line-row">
+          <div class="bd-line-seg"></div>
+          <div class="bd-arrowhead"></div>
+          <div class="bd-line-lbl" id="bd-line-lbl">Z₀=50Ω · TD=1.0ns</div>
+        </div>
+        <div class="bd-refl-row">
+          <div class="bd-refl-arrowhead"></div>
+          <div class="bd-refl-seg"></div>
+          <div class="bd-refl-lbl">← reflection</div>
+        </div>
+      </div>
+
+      <!-- Load block -->
+      <div class="bd-block load">
+        <div class="bd-title">Load</div>
+        <div class="bd-val red" id="bd-load">∞ Ω · open</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Oscilloscope -->
   <div class="scope-wrap">
     <div class="scope-label">
-      <span>VOLTAGE AT SOURCE PORT  (V)</span>
-      <span id="scope-ylbl"></span>
+      <span id="scope-ylabel">VOLTAGE AT SOURCE PORT  (V)</span>
+      <span id="scope-ylbl-r"></span>
     </div>
     <div class="scope-box">
       <canvas id="tdr"></canvas>
     </div>
   </div>
 
+  <!-- Calculation cards -->
   <div class="calc-row">
     <div class="calc-cell">
       <div class="calc-name">V<sub>initial</sub></div>
@@ -643,21 +538,8 @@ canvas#tdr { display: block; width: 100%; height: 100%; }
 
 <!-- FOOTER -->
 <div class="footer">
-  <div class="step">
-    <div class="step-n">1</div>
-    <div class="step-t">Set Z<sub>s</sub>, Z<sub>0</sub> and TD to define the line</div>
-  </div>
-  <div class="step">
-    <div class="step-n">2</div>
-    <div class="step-t">Pick a load preset — watch Γ and waveform change</div>
-  </div>
-  <div class="step">
-    <div class="step-n">3</div>
-    <div class="step-t">Orange marker = reflection arrival at t = 2·TD</div>
-  </div>
-  <div class="step">
-    <div class="step-n">4</div>
-    <div class="step-t">Calculations below update live with every change</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#bbb;">
+    t = <span id="scope-time">0.00</span> ns &nbsp;·&nbsp; scope @ source port
   </div>
   <div class="footer-right">
     <button class="ref-btn" onclick="openRefs()">References</button>
@@ -668,265 +550,204 @@ canvas#tdr { display: block; width: 100%; height: 100%; }
 <!-- REFERENCES MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
   <div class="modal">
-
     <div class="modal-header">
       <div>
         <div class="modal-title">References</div>
-        <div class="modal-subtitle">TRN553 TDR Simulator</div>
+        <div class="modal-sub">TRN553 TDR Simulator</div>
       </div>
       <button class="modal-close" onclick="closeRefs()">✕</button>
     </div>
-
     <div class="modal-body">
-
-      <!-- Course Material -->
       <div>
-        <div class="ref-section-title">Course Material</div>
-
+        <div class="ref-sec-title">Course Material</div>
         <div class="ref-entry">
           <div class="ref-num">[1]</div>
-          <div class="ref-content">
+          <div>
             <div class="ref-authors">H. Maghera,</div>
             <div class="ref-title">"Reflections and TDR Measurements,"</div>
-            <div class="ref-detail">
-              Lecture slides, TRN553 — Communications Engineering Technology,<br>
-              Seneca Polytechnic, Toronto, ON, Canada, 2024.<br>
-              Topics covered: transmission line impedances, reflection coefficient Γ,
-              termination scenarios (open, short, matched, Z<sub>L</sub>&gt;Z<sub>0</sub>,
-              Z<sub>L</sub>&lt;Z<sub>0</sub>), return loss, TDR principles,
-              spatial resolution (TD &gt; ½RT), and reactive loads.
-            </div>
+            <div class="ref-detail">Lecture slides, TRN553 — Communications Engineering Technology,<br>Seneca Polytechnic, Toronto, ON, Canada, 2024.<br>Topics: impedance types, Γ = (Z<sub>L</sub>−Z<sub>0</sub>)/(Z<sub>L</sub>+Z<sub>0</sub>), termination scenarios, return loss, TDR principles, spatial resolution.</div>
             <span class="ref-tag">Lecture Slides · Week 3</span>
           </div>
         </div>
       </div>
-
-      <!-- AI Tools -->
       <div>
-        <div class="ref-section-title">AI Tools Used in Development</div>
-
+        <div class="ref-sec-title">AI Tools Used in Development</div>
         <div class="ref-entry">
           <div class="ref-num">[2]</div>
-          <div class="ref-content">
+          <div>
             <div class="ref-authors">Anthropic,</div>
             <div class="ref-title">"Claude Sonnet 4.5,"</div>
-            <div class="ref-detail">
-              Large language model used to assist in the design and development
-              of this interactive web-based tool. Claude was prompted to generate
-              HTML, CSS, and JavaScript code implementing the TDR waveform
-              simulation, lattice-diagram superposition logic, and user interface.
-              All equations and physical relationships were verified against
-              course lecture slides [1].<br>
-              Anthropic, San Francisco, CA. Accessed 2024.
-            </div>
+            <div class="ref-detail">Large language model used to assist in the design and development of this interactive web tool. Claude was prompted to generate HTML, CSS, and JavaScript implementing TDR waveform simulation, lattice-diagram superposition, impedance axis conversion, and distance axis scaling. All equations verified against [1].<br>Anthropic, San Francisco, CA. Accessed 2024. Available: claude.ai</div>
             <span class="ref-tag">AI-Assisted Development · claude.ai</span>
           </div>
         </div>
       </div>
-
       <div class="modal-note">
-        <strong>Note on AI use:</strong> This tool was built as part of TRN553 Assignment 1.2
-        (Build-a-Tool). Claude AI was used to generate and refine the source code based on
-        student-directed prompts. All technical content — equations, termination cases,
-        and TDR principles — is drawn directly from the course lecture material [1] and
-        was reviewed for correctness by the student.
+        <strong>Note on AI use:</strong> This tool was built for TRN553 Assignment 1.2 (Build-a-Tool). Claude AI generated and refined source code based on student-directed prompts. All technical content — equations, termination cases, TDR principles — is drawn from the course lecture material [1] and reviewed for correctness by the student.
       </div>
-
     </div>
   </div>
 </div>
 
 <script>
-// ─── MODAL ───────────────────────────────────────────────────────────────────
-function openRefs() {
-  document.getElementById('modal-overlay').classList.add('open');
-}
-function closeRefs() {
-  document.getElementById('modal-overlay').classList.remove('open');
-}
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeRefs();
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRefs(); });
-
-// ─── STATE ───────────────────────────────────────────────────────────────────
-const P = {
-  zs: 50, z0: 50, td: 1.0, E: 1.0, rt: 0.15,
-  zl: 1e9, spd: 1.0, t: 0, playing: true
-};
+const C0 = 3e8;
+const P  = { zs:50, z0:50, td:1.0, vf:0.66, E:1.0, rt:0.15, zl:1e9, spd:1.0, t:0, playing:true };
 let presetActive = true;
+let yAxis = 'voltage';
+let xAxis = 'time';
 
-// ─── CANVAS ──────────────────────────────────────────────────────────────────
 const canvas = document.getElementById('tdr');
 const ctx    = canvas.getContext('2d');
-
-function resize() {
-  canvas.width  = canvas.parentElement.clientWidth;
-  canvas.height = canvas.parentElement.clientHeight;
-}
+function resize() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; }
 window.addEventListener('resize', resize);
 resize();
 
-// ─── CALCULATIONS ────────────────────────────────────────────────────────────
-// Γ = (Z_L − Z_0) / (Z_L + Z_0)             [Slide 4, 13]
-// V_initial = E · Z_0 / (Z_s + Z_0)         [Voltage divider, Slide 5]
-// V_reflected = Γ · V_initial                [Slide 4]
-// Return Loss = −20·log₁₀|Γ|                [Slide 16]
-// Reflection arrives at 2·TD                 [Slide 23]
-
 function calc() {
   const { zs, z0, zl, E } = P;
-  const gl = (zl - z0) / (zl + z0);
-  const gs = (zs - z0) / (zs + z0);
+  const gl = (zl - z0) / (zl + z0 + 1e-12);
+  const gs = (zs - z0) / (zs + z0 + 1e-12);
   const vi = E * z0 / (zs + z0);
   const vr = vi * gl;
   const rl = Math.abs(gl) > 1e-9 ? -20 * Math.log10(Math.abs(gl)) : Infinity;
   return { gl, gs, vi, vr, rl };
 }
 
-// ─── WAVEFORM ────────────────────────────────────────────────────────────────
+function timeToDistance(t_ns) { return P.vf * C0 * (t_ns * 1e-9) / 2; }
+
 function buildWaveform(tmax) {
   const { gl, gs, vi } = calc();
-  const td = P.td, rt = P.rt;
-  const dt = 0.012, pts = [];
-
+  const td = P.td, rt = P.rt, dt = 0.012, pts = [];
   function ramp(t, t0, amp) {
-    if (t < t0)      return 0;
+    if (t < t0) return 0;
     if (t < t0 + rt) return amp * (t - t0) / rt;
     return amp;
   }
-
   for (let ti = 0; ti <= tmax + dt; ti += dt) {
     let v = 0;
-    v += ramp(ti,  0,       vi);
-    v += ramp(ti,  2*td,    vi * gl);
-    v += ramp(ti,  4*td,    vi * gl * gs);
-    v += ramp(ti,  6*td,    vi * gl * gl * gs);
-    v += ramp(ti,  8*td,    vi * gl * gl * gs * gs);
-    v += ramp(ti, 10*td,    vi * Math.pow(gl,3) * Math.pow(gs,2));
+    v += ramp(ti,  0,    vi);
+    v += ramp(ti,  2*td, vi * gl);
+    v += ramp(ti,  4*td, vi * gl * gs);
+    v += ramp(ti,  6*td, vi * gl * gl * gs);
+    v += ramp(ti,  8*td, vi * gl * gl * gs * gs);
+    v += ramp(ti, 10*td, vi * Math.pow(gl,3) * Math.pow(gs,2));
     pts.push({ t: ti, v });
   }
   return pts;
 }
 
-// ─── DRAW ────────────────────────────────────────────────────────────────────
+function voltageToImpedance(v) {
+  const { vi } = calc();
+  if (Math.abs(vi) < 1e-9) return P.z0;
+  const rho = (v - vi) / vi;
+  const denom = 1 - rho;
+  if (Math.abs(denom) < 0.001) return P.z0 * 200;
+  return P.z0 * (1 + rho) / denom;
+}
+
 function draw() {
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0, 0, W, H);
-
   const { gl, vi, vr, rl } = calc();
   const tmax = Math.max(P.td * 7 + P.rt * 3, 4);
   const pts  = buildWaveform(tmax);
   const cur  = P.t % (tmax * 1.25);
+  const pad  = { l:56, r:20, t:16, b:34 };
+  const pw   = W - pad.l - pad.r;
+  const ph   = H - pad.t - pad.b;
 
-  const pad = { l: 50, r: 20, t: 16, b: 34 };
-  const pw  = W - pad.l - pad.r;
-  const ph  = H - pad.t - pad.b;
+  const xmax = xAxis === 'time' ? tmax : timeToDistance(tmax);
+  function tx(t) { const xv = xAxis === 'time' ? t : timeToDistance(t); return pad.l + (xv / xmax) * pw; }
 
-  const vhi   = P.E * 1.55;
-  const vlo   = -P.E * 0.55;
-  const vspan = vhi - vlo;
-
-  function tx(t) { return pad.l + (t / tmax) * pw; }
-  function ty(v) { return pad.t + ph * (1 - (v - vlo) / vspan); }
-
-  // grid
-  ctx.strokeStyle = '#f0f0f0';
-  ctx.lineWidth = 1;
-  for (let i = 0; i <= 5; i++) {
-    const y = pad.t + (ph / 5) * i;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + pw, y); ctx.stroke();
-  }
-  for (let i = 0; i <= 7; i++) {
-    const x = pad.l + (pw / 7) * i;
-    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + ph); ctx.stroke();
+  let yhi, ylo, yspan, ty, yLabel, yFmtFn;
+  if (yAxis === 'voltage') {
+    yhi = P.E * 1.55; ylo = -P.E * 0.55; yspan = yhi - ylo;
+    ty = v => pad.t + ph * (1 - (v - ylo) / yspan);
+    yLabel = 'VOLTAGE AT SOURCE PORT  (V)';
+    yFmtFn = v => v.toFixed(2) + 'V';
+  } else {
+    yhi = P.z0 * 4.5; ylo = 0; yspan = yhi - ylo;
+    ty = z => pad.t + ph * (1 - (z - ylo) / yspan);
+    yLabel = 'INSTANTANEOUS IMPEDANCE  (Ω)';
+    yFmtFn = z => z.toFixed(0) + 'Ω';
   }
 
-  // zero line
-  ctx.strokeStyle = '#d0d0d0';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(pad.l, ty(0)); ctx.lineTo(pad.l + pw, ty(0)); ctx.stroke();
+  document.getElementById('scope-ylabel').textContent = yLabel;
+  document.getElementById('scope-ylbl-r').textContent = xAxis === 'distance'
+    ? 'vf=' + P.vf.toFixed(2) + '  vₚ=' + (P.vf * C0 / 1e8).toFixed(2) + '×10⁸m/s'
+    : 'E=' + P.E.toFixed(1) + 'V  Z₀=' + P.z0 + 'Ω';
 
-  // axis labels
-  ctx.fillStyle = '#999';
-  ctx.font = '10px "JetBrains Mono", monospace';
-  ctx.textAlign = 'right';
-  for (let i = 0; i <= 5; i++) {
-    const v = vlo + (vspan / 5) * (5 - i);
-    ctx.fillText(v.toFixed(2) + 'V', pad.l - 5, pad.t + (ph / 5) * i + 3.5);
+  // Grid
+  ctx.strokeStyle = '#f0f0f0'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) { const y = pad.t + (ph/5)*i; ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+pw,y); ctx.stroke(); }
+  for (let i = 0; i <= 7; i++) { const x = pad.l + (pw/7)*i; ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ph); ctx.stroke(); }
+
+  // Reference line
+  if (yAxis === 'voltage') {
+    ctx.strokeStyle='#d8d8d8'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l, ty(0)); ctx.lineTo(pad.l+pw, ty(0)); ctx.stroke();
+  } else {
+    ctx.strokeStyle='#d8d8d8'; ctx.lineWidth=1; ctx.setLineDash([6,4]);
+    ctx.beginPath(); ctx.moveTo(pad.l, ty(P.z0)); ctx.lineTo(pad.l+pw, ty(P.z0)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#ccc'; ctx.font='8px "JetBrains Mono",monospace'; ctx.textAlign='left';
+    ctx.fillText('Z₀', pad.l+4, ty(P.z0)-3);
   }
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#aaa';
-  for (let i = 0; i <= 7; i++) {
-    const x = pad.l + (pw / 7) * i;
-    ctx.fillText((tmax * i / 7).toFixed(1), x, pad.t + ph + 13);
+
+  // Y labels
+  ctx.fillStyle='#999'; ctx.font='10px "JetBrains Mono",monospace'; ctx.textAlign='right';
+  for (let i=0;i<=5;i++) { const yv=ylo+yspan*(5-i)/5; ctx.fillText(yFmtFn(yv), pad.l-5, pad.t+(ph/5)*i+3.5); }
+
+  // X labels
+  ctx.textAlign='center'; ctx.fillStyle='#aaa';
+  for (let i=0;i<=7;i++) {
+    const t_ns = tmax*i/7, x = pad.l+(pw/7)*i;
+    ctx.fillText(xAxis==='time' ? t_ns.toFixed(1) : (timeToDistance(t_ns)*100).toFixed(1), x, pad.t+ph+13);
   }
-  ctx.fillStyle = '#bbb';
-  ctx.font = '9px "JetBrains Mono", monospace';
-  ctx.fillText('time (ns) →', pad.l + pw / 2, pad.t + ph + 27);
+  ctx.fillStyle='#bbb'; ctx.font='9px "JetBrains Mono",monospace';
+  ctx.fillText(xAxis==='time' ? 'time (ns) →' : 'one-way distance (cm) →', pad.l+pw/2, pad.t+ph+27);
 
   // 2·TD marker
-  const tdLine = 2 * P.td;
-  if (tdLine < tmax) {
-    ctx.save();
-    ctx.strokeStyle = '#e67e22';
-    ctx.lineWidth = 1;
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath(); ctx.moveTo(tx(tdLine), pad.t); ctx.lineTo(tx(tdLine), pad.t + ph); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = '#e67e22';
-    ctx.font = '9px "JetBrains Mono", monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText('2·TD = ' + tdLine.toFixed(1) + 'ns', tx(tdLine) + 5, pad.t + 12);
-    ctx.restore();
+  const mt = 2*P.td;
+  if (mt < tmax) {
+    const mx = tx(mt);
+    const ml = xAxis==='time' ? '2·TD = '+mt.toFixed(1)+'ns' : 'd = '+(timeToDistance(mt)*100).toFixed(1)+'cm';
+    ctx.save(); ctx.strokeStyle='#e67e22'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(mx,pad.t); ctx.lineTo(mx,pad.t+ph); ctx.stroke();
+    ctx.setLineDash([]); ctx.fillStyle='#e67e22'; ctx.font='9px "JetBrains Mono",monospace';
+    ctx.textAlign='left'; ctx.fillText(ml, mx+5, pad.t+12); ctx.restore();
   }
 
-  // ghost waveform
-  ctx.strokeStyle = 'rgba(0,0,0,0.08)';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  let started = false;
-  for (const p of pts) {
-    const x = tx(p.t), y = ty(p.v);
-    started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true);
+  function getY(p) {
+    if (yAxis==='voltage') return ty(p.v);
+    return ty(Math.max(ylo, Math.min(yhi, voltageToImpedance(p.v))));
   }
+
+  // Ghost
+  ctx.strokeStyle='rgba(0,0,0,0.07)'; ctx.lineWidth=1.5; ctx.beginPath();
+  let started=false;
+  for (const p of pts) { const x=tx(p.t),y=getY(p); started?ctx.lineTo(x,y):(ctx.moveTo(x,y),started=true); }
   ctx.stroke();
 
-  // live waveform
-  ctx.strokeStyle = '#1a1a1a';
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  started = false;
-  let lastPt = null;
+  // Live
+  ctx.strokeStyle='#1a1a1a'; ctx.lineWidth=2; ctx.beginPath();
+  started=false; let lastPt=null;
   for (const p of pts) {
-    if (p.t > cur) break;
-    const x = tx(p.t), y = ty(p.v);
-    started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true);
-    lastPt = { x, y };
+    if (p.t>cur) break;
+    const x=tx(p.t),y=getY(p); started?ctx.lineTo(x,y):(ctx.moveTo(x,y),started=true); lastPt={x,y};
   }
   ctx.stroke();
+  if (lastPt) { ctx.fillStyle='#c0392b'; ctx.beginPath(); ctx.arc(lastPt.x,lastPt.y,4,0,Math.PI*2); ctx.fill(); }
 
-  if (lastPt) {
-    ctx.fillStyle = '#c0392b';
-    ctx.beginPath(); ctx.arc(lastPt.x, lastPt.y, 4, 0, Math.PI * 2); ctx.fill();
-  }
-
-  document.getElementById('scope-time').textContent = 't = ' + cur.toFixed(2) + ' ns';
-  document.getElementById('scope-ylbl').textContent  =
-    'E = ' + P.E.toFixed(1) + 'V  ·  Z\u2080 = ' + P.z0 + '\u03A9';
-
+  document.getElementById('scope-time').textContent = cur.toFixed(2);
   updateCalcs(gl, vi, vr, rl);
+  updateBlockDiagram();
 }
 
-// ─── UPDATE CALCS ────────────────────────────────────────────────────────────
 function flash(id, html) {
   const el = document.getElementById(id);
   if (el.innerHTML !== html) {
-    el.innerHTML = html;
-    el.classList.remove('flash');
-    void el.offsetWidth;
-    el.classList.add('flash');
-    setTimeout(() => el.classList.remove('flash'), 400);
+    el.innerHTML = html; el.classList.remove('flash'); void el.offsetWidth;
+    el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 400);
   }
 }
 
@@ -940,102 +761,88 @@ function updateCalcs(gl, vi, vr, rl) {
   document.getElementById('v-zs').textContent = P.zs + ' Ω';
   document.getElementById('v-z0').textContent = P.z0 + ' Ω';
   document.getElementById('v-td').textContent = P.td.toFixed(1) + ' ns';
+  document.getElementById('v-vf').textContent = P.vf.toFixed(2);
   document.getElementById('v-e').textContent  = P.E.toFixed(1) + ' V';
   document.getElementById('v-rt').textContent = P.rt.toFixed(2) + ' ns';
   document.getElementById('v-zl').textContent = P.zl >= 1e6 ? '∞ Ω' : P.zl + ' Ω';
 
-  const tagEl  = document.getElementById('term-tag');
+  const tagEl = document.getElementById('term-tag');
   const descEl = document.getElementById('term-desc');
   if (presetActive) {
     let tag, desc;
-    if      (Math.abs(gl) < 0.02) { tag = 'Matched Load';  desc = 'No reflection · all power absorbed · Γ = 0'; }
-    else if (gl >  0.98)          { tag = 'Open Circuit';   desc = 'Full reflection · in-phase · voltage doubles at load'; }
-    else if (gl < -0.98)          { tag = 'Short Circuit';  desc = 'Full reflection · out-of-phase · voltage = 0 at load'; }
-    else if (gl >  0)             { tag = 'ZL > Z₀';        desc = 'Partial in-phase reflection · 0 < Γ < 1'; }
-    else                          { tag = 'ZL < Z₀';        desc = 'Partial out-of-phase reflection · −1 < Γ < 0'; }
-    tagEl.textContent  = tag;
-    descEl.textContent = desc;
-    tagEl.classList.remove('hidden');
-    descEl.classList.remove('hidden');
+    if      (Math.abs(gl) < 0.02) { tag='Matched Load';  desc='No reflection · all power absorbed · Γ = 0'; }
+    else if (gl >  0.98)          { tag='Open Circuit';   desc='Full reflection · in-phase · voltage doubles at load'; }
+    else if (gl < -0.98)          { tag='Short Circuit';  desc='Full reflection · out-of-phase · voltage = 0 at load'; }
+    else if (gl >  0)             { tag='ZL > Z₀';        desc='Partial in-phase reflection · 0 < Γ < 1'; }
+    else                          { tag='ZL < Z₀';        desc='Partial out-of-phase reflection · −1 < Γ < 0'; }
+    tagEl.textContent=tag; descEl.textContent=desc;
+    tagEl.classList.remove('hidden'); descEl.classList.remove('hidden');
   } else {
-    tagEl.classList.add('hidden');
-    descEl.classList.add('hidden');
+    tagEl.classList.add('hidden'); descEl.classList.add('hidden');
   }
 }
 
-// ─── ANIMATION LOOP ──────────────────────────────────────────────────────────
+function updateBlockDiagram() {
+  document.getElementById('bd-src').textContent = 'E=' + P.E.toFixed(1) + 'V · Zs=' + P.zs + 'Ω';
+  document.getElementById('bd-line-lbl').textContent = 'Z₀=' + P.z0 + 'Ω · TD=' + P.td.toFixed(1) + 'ns';
+  const zlStr = P.zl >= 1e6 ? '∞ Ω' : P.zl + 'Ω';
+  const loadType = P.zl >= 1e6 ? 'open' : P.zl === 0 ? 'short' : 'custom';
+  document.getElementById('bd-load').textContent = zlStr + ' · ' + loadType;
+}
+
 let lastTs = null;
 function loop(ts) {
   if (lastTs && P.playing) P.t += (ts - lastTs) / 1000 * P.spd * 0.45;
-  lastTs = ts;
-  draw();
-  requestAnimationFrame(loop);
+  lastTs = ts; draw(); requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
 
-// ─── SYNC CONTROLS → SLIDERS + LABELS ────────────────────────────────────────
+function setYAxis(mode, el) { yAxis=mode; document.querySelectorAll('#y-volt,#y-imp').forEach(b=>b.classList.remove('active')); el.classList.add('active'); }
+function setXAxis(mode, el) { xAxis=mode; document.querySelectorAll('#x-time,#x-dist').forEach(b=>b.classList.remove('active')); el.classList.add('active'); }
+
 function syncControls() {
-  document.getElementById('r-zs').value = P.zs;
-  document.getElementById('r-z0').value = P.z0;
-  document.getElementById('r-td').value = P.td;
-  document.getElementById('r-e').value  = P.E;
-  document.getElementById('r-rt').value = P.rt;
-  document.getElementById('r-zl').value = Math.min(P.zl, 500);
-  document.getElementById('v-zs').textContent = P.zs + ' Ω';
-  document.getElementById('v-z0').textContent = P.z0 + ' Ω';
-  document.getElementById('v-td').textContent = P.td.toFixed(1) + ' ns';
-  document.getElementById('v-e').textContent  = P.E.toFixed(1) + ' V';
-  document.getElementById('v-rt').textContent = P.rt.toFixed(2) + ' ns';
-  document.getElementById('v-zl').textContent = P.zl >= 1e6 ? '∞ Ω' : P.zl + ' Ω';
+  document.getElementById('r-zs').value=P.zs; document.getElementById('r-z0').value=P.z0;
+  document.getElementById('r-td').value=P.td; document.getElementById('r-vf').value=P.vf;
+  document.getElementById('r-e').value=P.E;   document.getElementById('r-rt').value=P.rt;
+  document.getElementById('r-zl').value=Math.min(P.zl,500);
+  document.getElementById('v-zs').textContent=P.zs+' Ω'; document.getElementById('v-z0').textContent=P.z0+' Ω';
+  document.getElementById('v-td').textContent=P.td.toFixed(1)+' ns'; document.getElementById('v-vf').textContent=P.vf.toFixed(2);
+  document.getElementById('v-e').textContent=P.E.toFixed(1)+' V'; document.getElementById('v-rt').textContent=P.rt.toFixed(2)+' ns';
+  document.getElementById('v-zl').textContent=P.zl>=1e6?'∞ Ω':P.zl+' Ω';
 }
 
-// ─── SLIDER CONTROLS ─────────────────────────────────────────────────────────
-function onSlide(key, val) {
-  P[key] = val;
-  presetActive = false;
-  clearPresets();
-}
+function onSlide(key, val) { P[key]=val; presetActive=false; clearPresets(); }
+document.getElementById('r-zs').addEventListener('input',function(){onSlide('zs',+this.value);});
+document.getElementById('r-z0').addEventListener('input',function(){onSlide('z0',+this.value);});
+document.getElementById('r-td').addEventListener('input',function(){onSlide('td',+this.value);});
+document.getElementById('r-vf').addEventListener('input',function(){onSlide('vf',+this.value);});
+document.getElementById('r-e' ).addEventListener('input',function(){onSlide('E', +this.value);});
+document.getElementById('r-rt').addEventListener('input',function(){onSlide('rt',+this.value);});
+document.getElementById('r-zl').addEventListener('input',function(){onSlide('zl',+this.value);});
+document.getElementById('r-spd').addEventListener('input',function(){P.spd=+this.value;document.getElementById('v-spd').textContent=P.spd.toFixed(1)+'×';});
 
-document.getElementById('r-zs').addEventListener('input', function() { onSlide('zs', +this.value); });
-document.getElementById('r-z0').addEventListener('input', function() { onSlide('z0', +this.value); });
-document.getElementById('r-td').addEventListener('input', function() { onSlide('td', +this.value); });
-document.getElementById('r-e' ).addEventListener('input', function() { onSlide('E',  +this.value); });
-document.getElementById('r-rt').addEventListener('input', function() { onSlide('rt', +this.value); });
-document.getElementById('r-zl').addEventListener('input', function() { onSlide('zl', +this.value); });
-document.getElementById('r-spd').addEventListener('input', function() {
-  P.spd = +this.value;
-  document.getElementById('v-spd').textContent = P.spd.toFixed(1) + '×';
-});
-
-// ─── PRESETS ─────────────────────────────────────────────────────────────────
-function clearPresets() {
-  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-}
-
+function clearPresets() { document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active')); }
 function setPreset(p, el) {
-  clearPresets();
-  el.classList.add('active');
-  presetActive = true;
-  P.t = 0;
-  const z0 = P.z0;
-  if      (p === 'open')    { P.zl = 1e9; }
-  else if (p === 'short')   { P.zl = 0; }
-  else if (p === 'matched') { P.zl = z0; }
-  else if (p === 'high')    { P.zl = z0 * 3; }
-  else if (p === 'low')     { P.zl = Math.max(Math.round(z0 / 3), 1); }
+  clearPresets(); el.classList.add('active'); presetActive=true; P.t=0;
+  if      (p==='open')    P.zl=1e9;
+  else if (p==='short')   P.zl=0;
+  else if (p==='matched') P.zl=P.z0;
   syncControls();
 }
 
-// ─── PLAYBACK ────────────────────────────────────────────────────────────────
 function togglePlay() {
-  P.playing = !P.playing;
-  const btn = document.getElementById('btn-play');
-  btn.textContent = P.playing ? '⏸ Pause' : '▶ Play';
-  btn.className   = 'anim-btn' + (P.playing ? ' playing' : '');
+  P.playing=!P.playing;
+  const btn=document.getElementById('btn-play');
+  btn.textContent=P.playing?'⏸ Pause':'▶ Play';
+  btn.className='anim-btn'+(P.playing?' playing':'');
 }
-function resetAnim() { P.t = 0; }
+function resetAnim() { P.t=0; }
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
+function openRefs()  { document.getElementById('modal-overlay').classList.add('open'); }
+function closeRefs() { document.getElementById('modal-overlay').classList.remove('open'); }
+function handleOverlayClick(e) { if(e.target===document.getElementById('modal-overlay'))closeRefs(); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape')closeRefs(); });
+
 setPreset('open', document.getElementById('pre-open'));
 </script>
 </body>
